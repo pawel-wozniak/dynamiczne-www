@@ -1,34 +1,32 @@
-
 var game = {
   zdobyte : 0,
   zycia : 1,
 }
-alert(data[0]['country']);
+// alert(data[0]['country']);
 var elem = document.getElementById("panstwa");
 elem.innerHTML =data[0]['country'];
 
-alert(data.length);
-alert(data[0]['country'][2]);
+// alert(data.length);
+// alert(data[0]['country'][2]);
 
  for (var i = 0; i < data[0]['country'].length; i += 1) {
-    alert(data[0]['country'][i]);  
+    // alert(data[0]['country'][i]);  
   }
 
 
 addElement("wrap");
 //LISTENERS
 
-document.getElementById("graj").addEventListener("click", Sprawdz_Litery); 
-alert(game.zycia);
+//document.getElementById("graj").addEventListener("click", Sprawdz_Litery); 
+// alert(game.zycia);
 
 
 //FUNKCJE
 function Sprawdz_Litery(){
   var liter = document.getElementById("wpisz_litere").value;
-  alert(liter);
-  alert(getRandomInt(10,20));
+  // alert(liter);
+  // alert(getRandomInt(10,20));
 }
-
 
 function addElement(mydiv)
 {
@@ -37,11 +35,11 @@ function addElement(mydiv)
   newDiv.innerHTML = "jasiokotek";
 
   my_div = document.getElementById(mydiv);
-  document.body.insertBefore(newDiv, my_div);
+  //document.body.insertBefore(newDiv, my_div);
 
   newDiv2 = document.createElement("span");
   newDiv2.innerHTML = "jasiokotek2";
-  document.body.insertBefore(newDiv2, my_div.nextSibling);
+  //document.body.insertBefore(newDiv2, my_div.nextSibling);
 
   newDiv.classList.add("mystyle");  
 }
@@ -50,4 +48,20 @@ function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
+}
+
+
+
+document.getElementById("about").addEventListener("click", showAbout); 
+
+function showAbout() {
+  aboutDiv = document.getElementById("panstwa");
+  aboutDiv.classList.add("display: block;");
+  document.getElementById("about").addEventListener("click", hideAbout); 
+}
+
+function shideAbout() {
+  aboutDiv = document.getElementById("panstwa");
+  aboutDiv.classList.add("display: block;");
+  document.getElementById("about").addEventListener("click", hideAbout); 
 }

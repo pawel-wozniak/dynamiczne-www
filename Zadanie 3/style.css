@@ -1,5 +1,4 @@
-#wrap{position: relative;float: center;width: 100%;border: 1px solid red;}
-#panstwa {display: none;}
-#wpisz_litere {display: none;}
-
-#guziki { margin: 0 auto; top: 50%; text-align: center;} 
+.letter {width: 50px; height: 50px; border: 1px solid green; background-color: greenyellow; text-align: center;}
+.letters {display:flex; flex-direction: row;}
+.show {visibility: visible;}
+.hide {visibility: hidden;}

@@ -1,9 +1,7 @@
-var lives = 5;
-
 class Game {
 
   constructor() {
-    this.lives = lives;
+    this.lives = 5;
     this.password = this.generatePassword().toUpperCase();
     this.set = new Set();
     this.set.add(" ");
@@ -45,9 +43,7 @@ class Game {
   }
 
   generatePassword() {
-    let min = 1;
-    let max = data.length;
-    return data[Math.floor(Math.random() * (max - min)) + min]['country'];
+    return data[Math.floor(Math.random() * (data.length - 1)) + 1]['country'];
   }
 
   checkPassword() {
@@ -68,9 +64,7 @@ class Game {
     let letter =  (this.textInput.value).toUpperCase();
     if (letter == '') {return;}
 
-    if(! (this.password.includes(letter))) {
-      this.lives--;
-    } else if(this.hasLetter(letter)) {
+    if(! (this.password.includes(letter)) ||  this.hasLetter(letter)) {
       this.lives--;
     } else {
       this.set.add(letter);
@@ -130,30 +124,26 @@ class Game {
     this.buttonsDiv.classList.remove("remove");
     this.buttonsDiv.classList.add("recover");
     this.aboutDiv.classList.add("remove");
-    this.buttonPlay.addEventListener("click", this.playClick); 
-    this.buttonAbout.addEventListener("click", this.aboutClick); 
   }
 
   gameOver() {
-    this.textInput.classList.remove("recover");
-    this.textInput.classList.add("remove");
-    let screen = document.createElement("div");
-    screen.classList.add("about");
+    let screen = this.splashDiv();
     screen.classList.add("game_over");
-    screen.innerHTML = "Bla bla";
-    this.countriesDiv.appendChild(screen);
-    screen.addEventListener("click", this.restart);
   }
 
   youWin() {
+    let screen = this.splashDiv();
+    screen.classList.add("You_win");
+  }
+
+  splashDiv() {
     this.textInput.classList.remove("recover");
     this.textInput.classList.add("remove");
     let screen = document.createElement("div");
     screen.classList.add("about");
-    screen.classList.add("you_win");
-    screen.innerHTML = "Bla bla";
     this.countriesDiv.appendChild(screen);
     screen.addEventListener("click", this.restart);
+    return screen;
   }
 }
 

@@ -16,3 +16,6 @@
     background-color: blue;
     text-align: center;
 }
+
+.game_over {background-color: red;}
+.you_win {background-color: green;}

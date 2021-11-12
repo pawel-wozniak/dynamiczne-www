@@ -7,12 +7,6 @@ class Game {
     this.password = this.generatePassword().toUpperCase();
     this.set = new Set();
     this.set.add(" ");
-    alert(this.password);
-
-    this.init();
-  }
-
-  init() {
     this.countriesDiv = document.getElementById("countries");
     this.buttonsDiv = document.createElement("div");
     this.livesDiv = document.createElement("div");
@@ -37,13 +31,12 @@ class Game {
 
   playClick = e => {this.start();}
   aboutClick = e => {this.showAbout();}
-  inputEnter = e => {
-    if(e.keyCode == 13) {
-      this.checkLetter();
-    }
-  }
+  restart = e => {window.location.reload();}
+  inputEnter = e => {this.checkLetter(e);}
+  aboutBack = e => {this.hideAbout();}
 
   start() {
+    alert(this.password);
     this.textInput.addEventListener("keydown", this.inputEnter); 
     this.buttonsDiv.classList.add("remove");
     this.textInput.classList.add("recover");
@@ -57,30 +50,34 @@ class Game {
   }
 
   checkPassword() {
+    let flag = true;
     this.password.split('').forEach(lett => {
-      if(!this.hasLetter(lett)) {return false;}
+      if(!this.hasLetter(lett)) {flag = false;}
     });
-    return true;
+    return flag;
   }
 
   hasLetter(letter) {
     return this.set.has(letter);
   }
 
-  checkLetter() {
+  checkLetter(e) {
+    if(e.keyCode != 13) {return;}
+
     let letter =  (game.textInput.value).toUpperCase();
     if (letter == '') {return;}
+
     if(! (game.password.includes(letter))) {
       this.lives--;
     } else if(game.hasLetter(letter)) {
       this.lives--;
-    }
-    else {
+    } else {
       this.set.add(letter);
     }
-    if(lives == 0) {this.gameOver();}
-    if(this.checkPassword()) {this.youWin();}
     this.drawBoard();
+
+    if(this.lives == 0) {this.gameOver(); return;}
+    if(this.checkPassword()) {this.youWin(); return;}
   }
  
   drawBoard() {
@@ -89,6 +86,9 @@ class Game {
     this.countriesDiv.appendChild(this.textInput);
     this.countriesDiv.appendChild(this.livesDiv);
     this.livesDiv.innerHTML = "Lives: " + this.lives;
+
+    this.textInput.value = "";
+    this.textInput.focus();
   }
 
   drawLetters() {
@@ -124,7 +124,7 @@ class Game {
     this.aboutDiv.addEventListener("click", this.aboutBack);
   }
 
-  aboutBack = e => {
+  hideAbout() {
     this.buttonsDiv.classList.remove("remove");
     this.buttonsDiv.classList.add("recover");
     this.aboutDiv.classList.add("remove");
@@ -132,73 +132,27 @@ class Game {
     this.buttonAbout.addEventListener("click", this.aboutClick); 
   }
 
-  gameOver() {}
-  youWin() {}
+  gameOver() {
+    this.textInput.classList.remove("recover");
+    this.textInput.classList.add("remove");
+    let screen = document.createElement("div");
+    screen.classList.add("about");
+    screen.classList.add("game_over");
+    screen.innerHTML = "Bla bla";
+    this.countriesDiv.appendChild(screen);
+    screen.addEventListener("click", this.restart);
+  }
+
+  youWin() {
+    this.textInput.classList.remove("recover");
+    this.textInput.classList.add("remove");
+    let screen = document.createElement("div");
+    screen.classList.add("about");
+    screen.classList.add("you_win");
+    screen.innerHTML = "Bla bla";
+    this.countriesDiv.appendChild(screen);
+    screen.addEventListener("click", this.restart);
+  }
 }
 
 var game = new Game();
-
-
-
-
-// var game = {
-//   zdobyte : 0,
-//   zycia : 1,
-// }
-// // alert(data[0]['country']);
-// var elem = document.getElementById("panstwa");
-// elem.innerHTML =data[0]['country'];
-
-// // alert(data.length);
-// // alert(data[0]['country'][2]);
-
-//  for (var i = 0; i < data[0]['country'].length; i += 1) {
-//     // alert(data[0]['country'][i]);  
-//   }
-
-
-// addElement("wrap");
-// //LISTENERS
-
-// //document.getElementById("graj").addEventListener("click", Sprawdz_Litery); 
-// // alert(game.zycia);
-
-
-// //FUNKCJE
-// function Sprawdz_Litery(){
-//   var liter = document.getElementById("wpisz_litere").value;
-//   // alert(liter);
-//   // alert(getRandomInt(10,20));
-// }
-
-// function addElement(mydiv)
-// {
- 
-//   newDiv = document.createElement("span");
-//   newDiv.innerHTML = "jasiokotek";
-
-//   my_div = document.getElementById(mydiv);
-//   //document.body.insertBefore(newDiv, my_div);
-
-//   newDiv2 = document.createElement("span");
-//   newDiv2.innerHTML = "jasiokotek2";
-//   //document.body.insertBefore(newDiv2, my_div.nextSibling);
-
-//   newDiv.classList.add("mystyle");  
-// }
-
-
-
-// document.getElementById("about").addEventListener("click", showAbout); 
-
-// function showAbout() {
-//   aboutDiv = document.getElementById("panstwa");
-//   aboutDiv.classList.add("display: block;");
-//   document.getElementById("about").addEventListener("click", hideAbout); 
-// }
-
-// function shideAbout() {
-//   aboutDiv = document.getElementById("panstwa");
-//   aboutDiv.classList.add("display: block;");
-//   document.getElementById("about").addEventListener("click", hideAbout); 
-// }

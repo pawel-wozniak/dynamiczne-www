@@ -22,6 +22,7 @@ class Game {
     this.buttonAbout.innerHTML = "About";
     this.textInput.maxLength = 1;
     this.textInput.classList.add("remove");
+    this.livesDiv.classList.add("lives");
 
     this.countriesDiv.appendChild(this.buttonsDiv);
 
@@ -64,12 +65,12 @@ class Game {
   checkLetter(e) {
     if(e.keyCode != 13) {return;}
 
-    let letter =  (game.textInput.value).toUpperCase();
+    let letter =  (this.textInput.value).toUpperCase();
     if (letter == '') {return;}
 
-    if(! (game.password.includes(letter))) {
+    if(! (this.password.includes(letter))) {
       this.lives--;
-    } else if(game.hasLetter(letter)) {
+    } else if(this.hasLetter(letter)) {
       this.lives--;
     } else {
       this.set.add(letter);

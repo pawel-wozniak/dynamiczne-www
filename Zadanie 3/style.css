@@ -1,6 +1,13 @@
-.letter {width: 50px; height: 50px; border: 1px solid green; background-color: greenyellow; text-align: center;}
-.letter_space {background-color: white;}
-.letters {display:flex; flex-direction: row;}
+body {position: absolute;height: 100%;width: 100%}
+p {font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: black ; font-size: 36px;}
+button {font-size: 24px; padding: 14px 40px}
+
+#countries {display: flex; height: 100%; justify-content: center; align-items: center; gap: 20px; flex-direction: column;align-content: center;}
+
+.letters {display:flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 2px}
+.letter {width: 50px; height: 50px; border: 3px solid green; background-color: greenyellow; 
+    display: flex; justify-content: center; align-items: center; border-radius: 10px; box-shadow: 0 0 1em gray, inset 0 0 1em green;}
+.letter_space {background-color: white; box-shadow: 0 0 1em gray,inset 0 0 1em gray;}
 
 .show {visibility: visible;}
 .hide {visibility: hidden;}
@@ -8,14 +15,8 @@
 .remove {display: none;}
 .recover {display: block;}
 
-.about{position: absolute;
-    top: 30%;
-    left: 30%;
-    width: 40%;
-    height: 40%;
-    background-color: blue;
-    text-align: center;
-}
-
+.about{position: absolute; top: 30%; left: 30%; width: 40%; height: 40%; background-color: blue; text-align: center;}
 .game_over {background-color: red;}
 .you_win {background-color: green;}
+
+.input {width:2em; text-align: center; font-size: 32px;}

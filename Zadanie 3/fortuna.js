@@ -88,6 +88,7 @@ class Game {
     this.livesDiv.innerHTML = "Lives: " + this.lives;
 
     this.textInput.value = "";
+    this.textInput.classList.add("input");
     this.textInput.focus();
   }
 

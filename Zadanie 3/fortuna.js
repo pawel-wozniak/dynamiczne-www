@@ -1,19 +1,22 @@
 var lives = 5;
 
 class Game {
+
   constructor() {
     this.lives = lives;
     this.password = this.generatePassword().toUpperCase();
     this.set = new Set();
+    this.set.add(" ");
     alert(this.password);
 
     this.init();
-    this.drawBoard();
   }
 
   init() {
     this.countriesDiv = document.getElementById("countries");
     this.buttonsDiv = document.createElement("div");
+    this.livesDiv = document.createElement("div");
+    this.aboutDiv = document.createElement("div");
     this.buttonPlay = document.createElement("button");
     this.buttonAbout = document.createElement("button");
     this.textInput = document.createElement("input");
@@ -24,19 +27,26 @@ class Game {
     this.buttonPlay.innerHTML = "Play";
     this.buttonAbout.innerHTML = "About";
     this.textInput.maxLength = 1;
-    this.textInput.pattern = "[A-Za-z]";
+    this.textInput.classList.add("remove");
+
+    this.countriesDiv.appendChild(this.buttonsDiv);
 
     this.buttonPlay.addEventListener("click", this.playClick); 
     this.buttonAbout.addEventListener("click", this.aboutClick); 
   }
 
-  playClick = e => {
-    this.checkLetter();
-    this.drawBoard();
+  playClick = e => {this.start();}
+  aboutClick = e => {this.showAbout();}
+  inputEnter = e => {
+    if(e.keyCode == 13) {
+      this.checkLetter();
+    }
   }
 
-  aboutClick = e => {
-    this.checkLetter();
+  start() {
+    this.textInput.addEventListener("keydown", this.inputEnter); 
+    this.buttonsDiv.classList.add("remove");
+    this.textInput.classList.add("recover");
     this.drawBoard();
   }
 
@@ -68,13 +78,17 @@ class Game {
     else {
       this.set.add(letter);
     }
+    if(lives == 0) {this.gameOver();}
+    if(this.checkPassword()) {this.youWin();}
+    this.drawBoard();
   }
  
   drawBoard() {
     this.countriesDiv.replaceChildren();
     this.countriesDiv.appendChild(this.drawLetters());
-    this.countriesDiv.appendChild(this.buttonsDiv);
     this.countriesDiv.appendChild(this.textInput);
+    this.countriesDiv.appendChild(this.livesDiv);
+    this.livesDiv.innerHTML = "Lives: " + this.lives;
   }
 
   drawLetters() {
@@ -84,7 +98,7 @@ class Game {
     this.password.split('').forEach(lett => {
       let letterDiv = document.createElement("div");
       letterDiv.classList.add("letter");
-      
+      if(lett == " ") {letterDiv.classList.add("letter_space");}
       letterDiv.appendChild(this.drawLetter(lett));
 
       this.lettersDiv.appendChild(letterDiv);
@@ -100,7 +114,24 @@ class Game {
     return letterP;
   }
 
-  showAbout() {}
+  showAbout() {
+    this.buttonsDiv.classList.remove("recover");
+    this.buttonsDiv.classList.add("remove");
+    this.countriesDiv.appendChild(this.aboutDiv);
+    this.aboutDiv.classList.add("about");
+    this.aboutDiv.classList.remove("remove");
+    this.aboutDiv.innerHTML = "Bla bla";
+    this.aboutDiv.addEventListener("click", this.aboutBack);
+  }
+
+  aboutBack = e => {
+    this.buttonsDiv.classList.remove("remove");
+    this.buttonsDiv.classList.add("recover");
+    this.aboutDiv.classList.add("remove");
+    this.buttonPlay.addEventListener("click", this.playClick); 
+    this.buttonAbout.addEventListener("click", this.aboutClick); 
+  }
+
   gameOver() {}
   youWin() {}
 }

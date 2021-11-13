@@ -26,6 +26,10 @@ class Game {
 
     this.buttonPlay.addEventListener("click", this.playClick); 
     this.buttonAbout.addEventListener("click", this.aboutClick); 
+
+    this.quote = "Będzie fajnie!";
+    this.auth = "Anonimowy wykładowca PŁ";
+    this.getQuote();
   }
 
   playClick = e => {this.start();}
@@ -33,6 +37,13 @@ class Game {
   restart = e => {window.location.reload();}
   inputEnter = e => {this.checkLetter(e);}
   aboutBack = e => {this.hideAbout();}
+  getQuote = async () => {
+    const response = await fetch("https://type.fit/api/quotes");
+    const quotes = await response.json();
+    const index = Math.floor(Math.random()*quotes.length);
+    this.quote=quotes[index].text;
+    this.auth=quotes[index].author;
+  }
 
   start() {
     alert(this.password);
@@ -114,15 +125,18 @@ class Game {
     this.buttonsDiv.classList.remove("recover");
     this.buttonsDiv.classList.add("remove");
     this.countriesDiv.appendChild(this.aboutDiv);
+    this.aboutDiv.classList.add("popUp");
     this.aboutDiv.classList.add("about");
     this.aboutDiv.classList.remove("remove");
-    this.aboutDiv.innerHTML = "Bla bla";
+    this.aboutDiv.innerHTML = "<span>made by: <b>Paweł Woźniak</b><br>224868</span>";
+    this.aboutDiv.insertAdjacentHTML('beforeend', "<span><i>\""+this.quote+"\"</i><br><br>"+this.auth+"</span>");
     this.aboutDiv.addEventListener("click", this.aboutBack);
   }
 
   hideAbout() {
     this.buttonsDiv.classList.remove("remove");
     this.buttonsDiv.classList.add("recover");
+    this.aboutDiv.classList.remove("about");
     this.aboutDiv.classList.add("remove");
   }
 
@@ -133,14 +147,14 @@ class Game {
 
   youWin() {
     let screen = this.splashDiv();
-    screen.classList.add("You_win");
+    screen.classList.add("you_win");
   }
 
   splashDiv() {
     this.textInput.classList.remove("recover");
     this.textInput.classList.add("remove");
     let screen = document.createElement("div");
-    screen.classList.add("about");
+    screen.classList.add("popUp");
     this.countriesDiv.appendChild(screen);
     screen.addEventListener("click", this.restart);
     return screen;

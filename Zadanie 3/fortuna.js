@@ -1,5 +1,4 @@
 class Game {
-
   constructor() {
     this.lives = 5;
     this.password = this.generatePassword().toUpperCase();
@@ -53,9 +52,8 @@ class Game {
     this.drawBoard();
   }
 
-  generatePassword() {
-    return data[Math.floor(Math.random() * (data.length - 1)) + 1]['country'];
-  }
+  generatePassword() {return data[Math.floor(Math.random() * (data.length - 1)) + 1]['country'];}
+  hasLetter(letter) {return this.set.has(letter);}
 
   checkPassword() {
     let flag = true;
@@ -63,10 +61,6 @@ class Game {
       if(!this.hasLetter(lett)) {flag = false;}
     });
     return flag;
-  }
-
-  hasLetter(letter) {
-    return this.set.has(letter);
   }
 
   checkLetter(e) {
@@ -117,7 +111,7 @@ class Game {
   drawLetter(lett) {
     let letterP = document.createElement("p");
     letterP.innerHTML = lett;
-    if(!this.hasLetter(lett)) {letterP.classList.add("hide");} else {letterP.classList.add("show");}
+    (!this.hasLetter(lett)) ? letterP.classList.add("hide") : letterP.classList.add("show");
     return letterP;
   }
 
@@ -141,23 +135,23 @@ class Game {
   }
 
   gameOver() {
-    let screen = this.splashDiv();
-    screen.classList.add("game_over");
+    let textP = this.splashP("YOU LOSE!");
+    textP.classList.add("game_over");
   }
 
   youWin() {
-    let screen = this.splashDiv();
-    screen.classList.add("you_win");
+    let textP = this.splashP("YOU WIN!");
+    textP.classList.add("you_win");
   }
 
-  splashDiv() {
-    this.textInput.classList.remove("recover");
-    this.textInput.classList.add("remove");
-    let screen = document.createElement("div");
-    screen.classList.add("popUp");
-    this.countriesDiv.appendChild(screen);
-    screen.addEventListener("click", this.restart);
-    return screen;
+  splashP(text) {
+    this.countriesDiv.replaceChildren();
+    let textP = document.createElement("p");
+    textP.innerHTML = text;
+    textP.classList.add("text");
+    this.countriesDiv.appendChild(textP);
+    this.countriesDiv.addEventListener("click", this.restart);
+    return textP;
   }
 }
 

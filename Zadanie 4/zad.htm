@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <!--<link rel="stylesheet" type="text/css" href="style.css"/> -->
+
+</head>
+<body>
+    <div class="field-year">
+        <label for="year">Rok<span>*</span></label>
+        <input type="text" placeholder="1900" name="year" maxlength="4" required="required" aria-required="true">
+    </div>
+    <div class="field-month">
+        <label for="month">Miesiąc<span>*</span></label>
+        <input type="text" placeholder="01" name="month" maxlength="2" id="month" required="required" aria-required="true">
+    </div>
+    <div class="field-day">
+        <label for="day">Dzień<span>*</span></label>
+        <input type="text" placeholder="01" name="day" maxlength="2" id="day" required="required" aria-required="true">
+    </div>
+    <div class="field-last_five_pesel">
+        <label for="last_five_pesel">Pięć ostatnich cyfr PESEL
+            <br>
+        </label>
+        <input type="text" placeholder="00000" name="last_five_pesel" access="false" maxlength="5" id="last_five_pesel">
+    </div>
+    <div class="field-validate_pesel">
+        <button type="button" name="validate_pesel" access="false" id="validate_pesel">Validate PESEL
+            <br>
+        </button>
+    </div>
+    <div class="field-show_all_pesels">
+        <button type="button" name="show_all_pesels" access="false" id="show_all_pesels">Show all PESELs
+            <br>
+        </button>
+    </div>
+    <div class="field-find_valid_pesels">
+        <button type="button" name="find_valid_pesels" access="false" id="find_valid_pesels">Find valid PESELs
+            <br>
+        </button>
+    </div>
+    <script type="text/javascript" src="pesel.js"></script>		
+</body>
+</html>
